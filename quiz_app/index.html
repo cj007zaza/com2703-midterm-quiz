@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="แบบทดสอบทบทวน Midterm 100 ข้อ วิชาสื่อสารข้อมูลและเครือข่าย (COM2703) รองรับทุกสมาร์ตโฟน แท็บเล็ต และคอมพิวเตอร์">
+    <title>คลังข้อสอบทบทวน Midterm 100 ข้อ - วิชาสื่อสารข้อมูลและเครือข่าย</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="icon">📘</span>
+                <div>
+                    <h1>แบบทดสอบทบทวน Midterm (100 ข้อ)</h1>
+                    <p class="subtitle">วิชาสื่อสารข้อมูลและเครือข่าย (COM2703)</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button id="drawerToggle" class="btn-icon mobile-only" title="ผังข้อสอบ">🗺️</button>
+                <button id="themeToggle" class="btn-icon" title="เปลี่ยนธีม">🌙</button>
+            </div>
+        </header>
+
+        <!-- Mode & Filter Toolbar -->
+        <section class="toolbar-card">
+            <div class="mode-selector">
+                <button id="modePractice" class="btn-mode active">
+                    <span class="mode-icon">💡</span> Practice Mode (ฝึกทำ+ดูเฉลย)
+                </button>
+                <button id="modeExam" class="btn-mode">
+                    <span class="mode-icon">⏱️</span> Exam Mode (จำลองสอบ)
+                </button>
+            </div>
+            
+            <div class="filter-group">
+                <label for="chapterFilter">เลือกบทเรียน:</label>
+                <select id="chapterFilter" class="custom-select">
+                    <option value="all">📚 ครบทุกบท (100 ข้อ)</option>
+                    <option value="บทที่ 1: พื้นฐานการสื่อสารและคำนวณ">บทที่ 1: พื้นฐาน & คำนวณ (ข้อ 1-15)</option>
+                    <option value="บทที่ 2: สื่อกลางการส่งข้อมูล">บทที่ 2: สื่อกลาง & สัญญาณไร้สาย (ข้อ 16-40)</option>
+                    <option value="บทที่ 3: OSI Model & Network Devices">บทที่ 3: OSI Model, MUX & อุปกรณ์ (ข้อ 41-70)</option>
+                    <option value="บทที่ 4: การมอดูเลต, การส่งข้อมูล & Error Handling">บทที่ 4: มอดูเลต, สาย LAN & Error (ข้อ 71-100)</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Status & Progress Bar -->
+        <section class="progress-section">
+            <div class="progress-info">
+                <span id="questionCounter">ข้อที่ 1 / 100</span>
+                <span id="chapBadge" class="badge">บทที่ 1</span>
+                <span id="timerDisplay" class="timer-badge hidden">⏱️ 00:00</span>
+            </div>
+            <div class="progress-bar-container">
+                <div id="progressBar" class="progress-bar-fill" style="width: 1%;"></div>
+            </div>
+        </section>
+
+        <!-- Main Question Card -->
+        <main class="question-card" id="touchCardArea">
+            <div class="question-header">
+                <h2 id="questionText">กำลังโหลดข้อสอบ...</h2>
+            </div>
+
+            <!-- Image Container if Question Has Image -->
+            <div id="imageContainer" class="image-box hidden">
+                <img id="questionImage" src="" alt="รูปภาพประกอบข้อสอบ">
+                <p class="img-caption">🔍 แตะ/คลิกรูปเพื่อขยายใหญ่</p>
+            </div>
+
+            <!-- Interactive Vector Signal Wave Diagram (SVG) -->
+            <div id="svgWaveContainer" class="svg-wave-box hidden">
+                <div class="wave-header">⚡ แผนภูมิรูปคลื่นสัญญาณการแปลงสัญญาณ (Vector Signal Diagram)</div>
+                <div id="svgWaveGraphic" class="svg-graphic"></div>
+            </div>
+
+            <!-- Choice Options -->
+            <div id="optionsContainer" class="options-grid">
+                <!-- Choices rendered dynamically -->
+            </div>
+
+            <!-- Explanation Container (Practice Mode) -->
+            <div id="explanationBox" class="explanation-box hidden">
+                <div class="exp-title">
+                    <span id="expResultBadge" class="exp-badge">ถูกต้อง!</span>
+                    <span>💡 คำอธิบายเฉลยอย่างละเอียด</span>
+                </div>
+                <p id="explanationText"></p>
+            </div>
+
+            <!-- Desktop Navigation Bar -->
+            <div class="nav-actions desktop-nav">
+                <button id="prevBtn" class="btn btn-secondary" disabled>⬅️ ข้อก่อนหน้า</button>
+                <button id="flagBtn" class="btn btn-outline">🔖 ปักหมุดทบทวน</button>
+                <button id="nextBtn" class="btn btn-primary">ข้อถัดไป ➡️</button>
+                <button id="submitExamBtn" class="btn btn-success hidden">📝 ส่งข้อสอบ</button>
+            </div>
+        </main>
+
+        <!-- Question Grid Navigation Section (Desktop & Drawer) -->
+        <section class="grid-nav-section" id="gridSection">
+            <div class="grid-header">
+                <h3>แผนผังข้อสอบ (100 ข้อ)</h3>
+                <button id="closeDrawerBtn" class="btn-icon mobile-only">&times;</button>
+            </div>
+            <div id="questionGridNav" class="grid-nav-container">
+                <!-- Buttons 1 to 100 generated via JS -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Mobile Floating Bottom Control Bar -->
+    <div class="mobile-bottom-bar mobile-only">
+        <button id="mPrevBtn" class="btn btn-secondary" disabled>⬅️ ก่อนหน้า</button>
+        <button id="mFlagBtn" class="btn btn-outline">🔖 ปักหมุด</button>
+        <button id="mNextBtn" class="btn btn-primary">ถัดไป ➡️</button>
+    </div>
+
+    <!-- Exam Score Modal -->
+    <div id="scoreModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>🎉 สรุปผลการสอบ Midterm</h2>
+            <div class="score-circle">
+                <span id="finalScoreText">0 / 100</span>
+                <small id="scorePercent">0%</small>
+            </div>
+            <p id="scoreGradeMsg" class="score-msg">ทำได้ดีมาก!</p>
+            <div class="modal-stats">
+                <div class="stat-item correct">
+                    <span class="stat-num" id="statCorrect">0</span>
+                    <span>ตอบถูก</span>
+                </div>
+                <div class="stat-item wrong">
+                    <span class="stat-num" id="statWrong">0</span>
+                    <span>ตอบผิด</span>
+                </div>
+                <div class="stat-item skipped">
+                    <span class="stat-num" id="statSkipped">0</span>
+                    <span>ไม่ได้ทำ</span>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="reviewExamBtn" class="btn btn-secondary">🔍 ตรวจเฉลยละเอียด</button>
+                <button id="restartExamBtn" class="btn btn-primary">🔄 ทำข้อสอบใหม่อีกครั้ง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Image Zoom Modal -->
+    <div id="imgZoomModal" class="modal-overlay hidden">
+        <div class="zoom-modal-content">
+            <span id="closeImgZoom" class="zoom-close">&times;</span>
+            <img id="zoomedImg" src="" alt="ขยายรูปภาพ">
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
