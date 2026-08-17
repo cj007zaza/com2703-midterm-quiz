@@ -37,6 +37,7 @@ quiz_app/
 
 ---
 
+
 ## 🚀 วิธีใช้งานเปิดเล่นบนเว็บผ่าน GitHub Pages (ฟรี!)
 
 หากต้องการให้เพื่อนๆ เปิดเล่นผ่านลิงก์เว็บได้ทันที สามารถเปิดใช้งาน **GitHub Pages** ได้ดังนี้:
@@ -46,3 +47,4 @@ quiz_app/
 3. เลือกหัวข้อ **Pages** ด้านซ้ายมือ
 4. ในส่วน **Build and deployment -> Branch** ให้เลือก branch `main` (หรือ `master`) แล้วกด **Save**
 5. รอ 1-2 นาที GitHub จะสร้างลิงก์เว็บไซต์ให้ เช่น `https://username.github.io/repository-name/`
+
